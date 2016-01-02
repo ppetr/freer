@@ -75,6 +75,7 @@ type Arrs r a b = FTCQueue (Eff r) a b
 -- The Eff representation.
 --
 -- Status of a coroutine (client):
+--
 -- * Val: Done with the value of type a
 -- * E  : Sending a request of type Union r with the continuation Arrs r b a
 data Eff r a = Val a
@@ -124,6 +125,7 @@ send t = E (inj t) (tsingleton Val)
 --------------------------------------------------------------------------------
 -- | Runs a set of Effects. Requires that all effects are consumed.
 -- Typically composed as follows:
+--
 -- > run . runEff1 eff1Arg . runEff2 eff2Arg1 eff2Arg2 (program)
 run :: Eff '[] w -> w
 run (Val x) = x
